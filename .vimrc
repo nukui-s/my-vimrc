@@ -15,6 +15,10 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
+"For OSX
+set clipboard=unnamed,autoselect
+"For ubuntu
+"set clipboard=unnamedplus
 "set smarttab"
 
 """ 検索関係
