@@ -14,6 +14,7 @@ set hlsearch
 set autoindent
 set tabstop=4
 set shiftwidth=4
+set clipboard=unnamedplus
 set expandtab
 "set smarttab"
 
@@ -149,22 +150,22 @@ if a:bang == ''
 endif
 endfunction
 
-function! IncludePath(path)
-	" define delimiter depends on platform
-	if has('win16') || has('win32') || has('win64')
-		let delimiter = ";"
-	else
-		let delimiter = ":"
-	endif
-	let pathlist = split($PATH, delimiter)
-	if isdirectory(a:path) && index(pathlist, a:path) ==-1
-		let $PATH=a:path.delimiter.$PATH
-	endif
-endfunction
+"function! IncludePath(path)
+"	" define delimiter depends on platform
+"	if has('win16') || has('win32') || has('win64')
+""		let delimiter = ";"
+""   else
+"		let delimiter = ":"
+"	endif
+"	let pathlist = split($PATH, delimiter)
+"	if isdirectory(a:path) && index(pathlist, a:path) ==-1
+"		let $PATH=a:path.delimiter.$PATH
+"	endif
+"endfunction
 " ~/.pyenv/shims を $PATH に追加する
-" " これを行わないとpythonが正しく検索されない
+ " これを行わないとpythonが正しく検索されない
 "IncludePath(expand("~/.pyenv/shims"))
-let PATH = expand("~/.pyenv/shims") . ":" . $PATH
+"let PATH = expand("~/.pyenv/shims") . ":" . $PATH
 
 """NeoBundle setup
 if has('vim_starting')
@@ -250,6 +251,7 @@ NeoBundleLazy "davidhalter/jedi-vim", {
       \ "build": {
       \   "mac": "pip install jedi",
       \   "unix": "pip install jedi",
+      \   "linux": "pip install jedi",
       \ }}
 let s:hooks = neobundle#get_hooks("jedi-vim")
 function! s:hooks.on_source(bundle)
@@ -268,16 +270,16 @@ autocmd FileType python setlocal completeopt-=preview
 NeoBundleLazy 'Shougo/neocomplete.vim', {
     \ "autoload": {"insert": 1}}
 " Djangoを正しくVimで読み込めるようにする
-NeoBundleLazy "lambdalisue/vim-django-support", {
-      \ "autoload": {
-      \   "filetypes": ["python", "python3", "djangohtml"]
-      \ }}
+"NeoBundleLazy "lambdalisue/vim-django-support", {
+"      \ "autoload": {
+"      \   "filetypes": ["python", "python3", "djangohtml"]
+"      \ }}
 
-NeoBundleLazy "lambdalisue/vim-pyenv", {
-      \ "depends": ['davidhalter/jedi-vim'],
-      \ "autoload": {
-      \   "filetypes": ["python", "python3","djangohtml"]
-      \ }}
+"NeoBundleLazy "lambdalisue/vim-pyenv", {
+"      \ "depends": ['davidhalter/jedi-vim'],
+"      \ "autoload": {
+"      \   "filetypes": ["python", "python3","djangohtml"]
+"      \ }}
 NeoBundle "thinca/vim-quickrun"
 NeoBundle "Shougo/vimproc"
 NeoBundle "osyo-manga/shabadou.vim"
